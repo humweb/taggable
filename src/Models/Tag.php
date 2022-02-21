@@ -72,7 +72,7 @@ class Tag extends Model
     {
         $tag = static::findFromString($name);
 
-        if (!$tag) {
+        if (! $tag) {
             $tag = static::create([
                 'name' => $name,
             ]);
