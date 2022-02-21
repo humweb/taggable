@@ -1,9 +1,10 @@
 <?php
+
 namespace Humweb\Taggable\Tests;
 
 use Humweb\Taggable\Tests\Models\Post;
 
-beforeEach(function(){
+beforeEach(function () {
     $this->post1 = Post::create(['title' => 'Test Post1']);
     $this->post2 = Post::create(['title' => 'Test Post2']);
 });
@@ -22,14 +23,12 @@ it('can add tags to post', function () {
 });
 
 it('can get post by tag', function () {
-
     $this->post1->attachTags(['Test 1', 'Test 2']);
     expect(Post::withAnyTags('Test 1')->first()->title)->toEqual('Test Post1');
     expect(Post::withAnyTags('Test 2')->first()->title)->toEqual('Test Post1');
 });
 
 it('can detach tags', function () {
-
     $this->post1->attachTags(['Test 1', 'Test 2']);
     expect($this->post1->tags()->first()->name)->toEqual('Test 1');
 
@@ -38,7 +37,6 @@ it('can detach tags', function () {
 });
 
 it('can sync tags', function () {
-
     $this->post1->attachTags(['Test 1', 'Test 2']);
     expect($this->post1->tags()->first()->name)->toEqual('Test 1');
 
@@ -50,8 +48,6 @@ it('can sync tags', function () {
 });
 
 it('can create tag slug', function () {
-
     $this->post1->attachTags(['Test 1', 'Test 2']);
     expect($this->post1->tags()->first()->slug)->toEqual('test-1');
-
 });

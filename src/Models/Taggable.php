@@ -7,7 +7,6 @@ use Illuminate\Database\Eloquent\Relations\MorphToMany;
 
 trait Taggable
 {
-
     /**
      * @return MorphToMany
      */
@@ -40,7 +39,7 @@ trait Taggable
      *
      * @return Builder
      */
-    public function scopeWithAnyTags(Builder $query, string|array|ArrayAccess|Tag $tags,): Builder
+    public function scopeWithAnyTags(Builder $query, string|array|ArrayAccess|Tag $tags, ): Builder
     {
         $tags = static::convertToTags($tags);
 
@@ -52,7 +51,6 @@ trait Taggable
             });
     }
 
-
     /**
      * @param  array|ArrayAccess|Tag  $tags
      * @param  string|null            $type
@@ -61,7 +59,6 @@ trait Taggable
      */
     public function attachTags(array | ArrayAccess | Tag $tags, string $type = null): static
     {
-
         $tags = collect(Tag::findOrCreate($tags, $type));
 
         $this->tags()->syncWithoutDetaching($tags->pluck('id')->toArray());
@@ -128,7 +125,7 @@ trait Taggable
      */
     protected static function convertToTags($values)
     {
-        if ($values instanceof Tag || !is_array($values)) {
+        if ($values instanceof Tag || ! is_array($values)) {
             $values = [$values];
         }
 
