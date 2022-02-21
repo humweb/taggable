@@ -54,13 +54,11 @@ class Tag extends Model
      * @param  string|null  $type
      * @param  string|null  $locale
      *
-     * @return Builder|Model|object|null
+     * @return Tag|null
      */
-    public static function findFromString(string $name, string $type = null, string $locale = null): Model|object|Builder|null
+    public static function findFromString(string $name, string $type = null, string $locale = null): Tag|null
     {
-        return static::query()
-            ->where("name", $name)
-            ->first();
+        return static::query()->where("name", $name)->first();
     }
 
     /**
@@ -74,7 +72,7 @@ class Tag extends Model
     {
         $tag = static::findFromString($name);
 
-        if (! $tag) {
+        if (!$tag) {
             $tag = static::create([
                 'name' => $name,
             ]);
