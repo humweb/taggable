@@ -56,7 +56,7 @@ class Tag extends Model
      *
      * @return Builder|Model|object|null
      */
-    public static function findFromString(string $name, string $type = null, string $locale = null)
+    public static function findFromString(string $name, string $type = null, string $locale = null): Model|object|Builder|null
     {
         return static::query()
             ->where("name", $name)

@@ -4,6 +4,7 @@ namespace Humweb\Taggable\Models;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\MorphToMany;
+use Illuminate\Support\Collection;
 
 trait Taggable
 {
@@ -39,7 +40,7 @@ trait Taggable
      *
      * @return Builder
      */
-    public function scopeWithAnyTags(Builder $query, string|array|ArrayAccess|Tag $tags, ): Builder
+    public function scopeWithAnyTags(Builder $query, string|array|ArrayAccess|Tag $tags): Builder
     {
         $tags = static::convertToTags($tags);
 
@@ -59,7 +60,7 @@ trait Taggable
      */
     public function attachTags(array | ArrayAccess | Tag $tags, string $type = null): static
     {
-        $tags = collect(Tag::findOrCreate($tags, $type));
+        $tags = collect(Tag::findOrCreate($tags));
 
         $this->tags()->syncWithoutDetaching($tags->pluck('id')->toArray());
 
@@ -72,7 +73,7 @@ trait Taggable
      *
      * @return Taggable
      */
-    public function attachTag(string | Tag $tag, string | null $type = null)
+    public function attachTag(string | Tag $tag, string | null $type = null): Taggable
     {
         return $this->attachTags([$tag], $type);
     }
@@ -101,7 +102,7 @@ trait Taggable
      */
     public function detachTag(string | Tag $tag, string | null $type = null): static
     {
-        return $this->detachTags([$tag], $type);
+        return $this->detachTags([$tag]);
     }
 
     /**
@@ -121,9 +122,9 @@ trait Taggable
     /**
      * @param $values
      *
-     * @return \Illuminate\Support\Collection
+     * @return Collection
      */
-    protected static function convertToTags($values)
+    protected static function convertToTags($values): Collection
     {
         if ($values instanceof Tag || ! is_array($values)) {
             $values = [$values];
