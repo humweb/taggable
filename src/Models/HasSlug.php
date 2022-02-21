@@ -13,6 +13,4 @@ trait HasSlug
             $model->slug = Str::slug($model->name);
         });
     }
-
-
 }

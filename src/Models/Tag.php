@@ -7,15 +7,14 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
-use Illuminate\Support\Str;
 
 class Tag extends Model
 {
-    use HasFactory, HasSlug;
+    use HasFactory;
+    use HasSlug;
 
 
     public $guarded = [];
-
 
     /**
      * @param  Builder  $query
@@ -50,7 +49,6 @@ class Tag extends Model
         return is_string($values) ? $tags->first() : $tags;
     }
 
-
     /**
      * @param  string       $name
      * @param  string|null  $type
@@ -65,7 +63,6 @@ class Tag extends Model
             ->first();
     }
 
-
     /**
      * @param  string       $name
      * @param  string|null  $type
@@ -77,7 +74,7 @@ class Tag extends Model
     {
         $tag = static::findFromString($name);
 
-        if (!$tag) {
+        if (! $tag) {
             $tag = static::create([
                 'name' => $name,
             ]);
