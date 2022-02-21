@@ -71,11 +71,11 @@ trait Taggable
      * @param  string|Tag   $tag
      * @param  string|null  $type
      *
-     * @return Taggable
+     * @return $this
      */
-    public function attachTag(string | Tag $tag, string | null $type = null): Taggable
+    public function attachTag(string | Tag $tag, string | null $type = null)
     {
-        return $this->attachTags([$tag], $type);
+        return $this->attachTags([$tag]);
     }
 
     /**
